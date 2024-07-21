@@ -18,10 +18,10 @@ jobs:
       github.event.pull_request.state == 'open'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
@@ -30,7 +30,7 @@ jobs:
         with:
           output: " "
 
-      - uses: pre-commit/action@v3.0.0
+      - uses: pre-commit/action@v3.0.1
         env:
           extra_args: --color=always --files ${{ steps.file_changes.outputs.files}}
 
@@ -39,10 +39,10 @@ jobs:
     needs: [pre-commit]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
@@ -59,7 +59,7 @@ jobs:
         run: airflow variables import airflow_variables_ci.json
 
       - name: Authenticate to test-hubble GCP
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.CREDS_TEST_HUBBLE }}"
 
@@ -84,10 +84,10 @@ jobs:
     # in the same file this won't behave nicely
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
@@ -97,7 +97,7 @@ jobs:
           pip install google-cloud-storage==2.1.0
 
       - name: Authenticate to test-hubble GCP
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.CREDS_TEST_HUBBLE }}"
 
@@ -128,7 +128,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Create pull request
         run: >
